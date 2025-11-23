@@ -17,7 +17,6 @@ namespace Bai03_
         private MenuStrip menuStrip1;
         private ToolStripMenuItem fileToolStripMenuItem;
         private ToolStripMenuItem viewSourceToolStripMenuItem;
-        private Label label100;
         protected override void Dispose(bool disposing)
         {
             if (disposing && (components != null))
@@ -39,7 +38,6 @@ namespace Bai03_
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.fileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.viewSourceToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.label100 = new System.Windows.Forms.Label();
             this.panel_top.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.webView2_browser)).BeginInit();
             this.menuStrip1.SuspendLayout();
@@ -54,7 +52,7 @@ namespace Bai03_
             this.panel_top.Controls.Add(this.btn_down_files);
             this.panel_top.Controls.Add(this.btn_down_resources);
             this.panel_top.Dock = System.Windows.Forms.DockStyle.Top;
-            this.panel_top.Location = new System.Drawing.Point(0, 30);
+            this.panel_top.Location = new System.Drawing.Point(0, 28);
             this.panel_top.Name = "panel_top";
             this.panel_top.Padding = new System.Windows.Forms.Padding(6, 5, 6, 5);
             this.panel_top.Size = new System.Drawing.Size(914, 53);
@@ -116,9 +114,9 @@ namespace Bai03_
             this.webView2_browser.CreationProperties = null;
             this.webView2_browser.DefaultBackgroundColor = System.Drawing.Color.White;
             this.webView2_browser.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.webView2_browser.Location = new System.Drawing.Point(0, 83);
+            this.webView2_browser.Location = new System.Drawing.Point(0, 81);
             this.webView2_browser.Name = "webView2_browser";
-            this.webView2_browser.Size = new System.Drawing.Size(914, 397);
+            this.webView2_browser.Size = new System.Drawing.Size(914, 399);
             this.webView2_browser.TabIndex = 2;
             this.webView2_browser.ZoomFactor = 1D;
             // 
@@ -130,7 +128,7 @@ namespace Bai03_
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
             this.menuStrip1.Padding = new System.Windows.Forms.Padding(7, 2, 0, 2);
-            this.menuStrip1.Size = new System.Drawing.Size(914, 30);
+            this.menuStrip1.Size = new System.Drawing.Size(914, 28);
             this.menuStrip1.TabIndex = 0;
             this.menuStrip1.Text = "menuStrip1";
             // 
@@ -139,32 +137,21 @@ namespace Bai03_
             this.fileToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.viewSourceToolStripMenuItem});
             this.fileToolStripMenuItem.Name = "fileToolStripMenuItem";
-            this.fileToolStripMenuItem.Size = new System.Drawing.Size(46, 26);
+            this.fileToolStripMenuItem.Size = new System.Drawing.Size(46, 24);
             this.fileToolStripMenuItem.Text = "File";
             // 
             // viewSourceToolStripMenuItem
             // 
             this.viewSourceToolStripMenuItem.Name = "viewSourceToolStripMenuItem";
-            this.viewSourceToolStripMenuItem.Size = new System.Drawing.Size(224, 26);
+            this.viewSourceToolStripMenuItem.Size = new System.Drawing.Size(173, 26);
             this.viewSourceToolStripMenuItem.Text = "View Source";
             this.viewSourceToolStripMenuItem.Click += new System.EventHandler(this.viewSourceToolStripMenuItem_Click);
-            // 
-            // label100
-            // 
-            this.label100.AutoSize = true;
-            this.label100.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label100.Location = new System.Drawing.Point(93, 12);
-            this.label100.Name = "label100";
-            this.label100.Size = new System.Drawing.Size(81, 18);
-            this.label100.TabIndex = 5;
-            this.label100.Text = "Nhập URL:";
             // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(914, 480);
-            this.Controls.Add(this.label100);
             this.Controls.Add(this.webView2_browser);
             this.Controls.Add(this.panel_top);
             this.Controls.Add(this.menuStrip1);
