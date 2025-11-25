@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Net.Http;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -16,62 +15,58 @@ namespace Bai05_
 
         private async void btn_dangnhap_Click(object sender, EventArgs e)
         {
-            await DangNhapAPI(tb_taikhoan.Text.Trim(), tb_matkhau.Text);
+            await LoginAPI(tb_taikhoan.Text.Trim(), tb_matkhau.Text.Trim());
         }
 
-        private async Task DangNhapAPI(string username, string password)
+        private async Task LoginAPI(string username, string password)
         {
-            string url = "https://nt106.uitiot.vn/auth/token";
+            var url = "https://nt106.uitiot.vn/auth/token";
 
             btn_dangnhap.Enabled = false;
             btn_dangnhap.Text = "ĐANG XỬ LÝ...";
 
             try
             {
-                using (HttpClient client = new HttpClient())
+                using (var client = new HttpClient())
                 {
-                    client.DefaultRequestHeaders.Add("accept", "application/json");
-
-                    var formData = new List<KeyValuePair<string, string>>
+                    var content = new MultipartFormDataContent
                     {
-                        new KeyValuePair<string, string>("grant_type", ""),
-                        new KeyValuePair<string, string>("username", username),
-                        new KeyValuePair<string, string>("password", password),
-                        new KeyValuePair<string, string>("scope", ""),
-                        new KeyValuePair<string, string>("client_id", ""),
-                        new KeyValuePair<string, string>("client_secret", "")
+                        { new StringContent(username), "username" },
+                        { new StringContent(password), "password" }
                     };
 
-                    var content = new FormUrlEncodedContent(formData);
+                    var response = await client.PostAsync(url, content);
+                    var responseString = await response.Content.ReadAsStringAsync();
 
-                    tb_ketqua.Text = $"Testing: {username}\r\n";
-                    tb_ketqua.Text += "Connecting to server...\r\n";
+                    var responseObject = JObject.Parse(responseString);
 
-                    HttpResponseMessage response = await client.PostAsync(url, content);
-                    string responseString = await response.Content.ReadAsStringAsync();
-
-                    tb_ketqua.Text += $"Response Code: {(int)response.StatusCode}\r\n\r\n";
-
-                    if (response.IsSuccessStatusCode)
+                    if (!response.IsSuccessStatusCode)
                     {
-                        JObject responseObject = JObject.Parse(responseString);
-                        string tokenType = responseObject["token_type"].ToString();
-                        string accessToken = responseObject["access_token"].ToString();
+                        var detail = responseObject["detail"].ToString();
+                        tb_ketqua.Text = $"Detail: {detail}";
+                        return;
+                    }
 
-                        tb_ketqua.Text += $"{tokenType} {accessToken}\r\n";
-                        tb_ketqua.Text += "Đăng nhập thành công";
-                    }
-                    else
-                    {
-                        JObject responseObject = JObject.Parse(responseString);
-                        string detail = responseObject["detail"]?.ToString() ?? responseString;
-                        tb_ketqua.Text += $"Error: {detail}";
-                    }
+                    var tokenType = responseObject["token_type"].ToString();
+                    var accessToken = responseObject["access_token"].ToString();
+
+                    tb_ketqua.Text = $"Token Type: {tokenType}\r\n";
+                    tb_ketqua.Text += $"Access Token: {accessToken}\r\n\r\n";
+
+                    client.DefaultRequestHeaders.Authorization =
+                        new System.Net.Http.Headers.AuthenticationHeaderValue("Bearer", accessToken);
+
+                    var getUserUrl = "https://nt106.uitiot.vn/api/v1/user/me";
+                    var getUserResponse = await client.GetAsync(getUserUrl);
+                    var getUserResponseString = await getUserResponse.Content.ReadAsStringAsync();
+
+                    tb_ketqua.Text += "User Info:\r\n";
+                    tb_ketqua.Text += getUserResponseString;
                 }
             }
             catch (Exception ex)
             {
-                tb_ketqua.Text += $"System Error: {ex.Message}";
+                tb_ketqua.Text = $"System Error: {ex.Message}";
             }
             finally
             {
