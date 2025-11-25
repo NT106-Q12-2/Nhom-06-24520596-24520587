@@ -20,22 +20,18 @@ namespace Bai01
         }
         private string getHTML(string szURL)
         {
-            // Khởi tạo WebRequest
             WebRequest request = WebRequest.Create(szURL);
 
-            // Lấy WebResponse
+
             WebResponse response = request.GetResponse();
 
-            // Nhận Stream dữ liệu trả về
+
             Stream dataStream = response.GetResponseStream();
 
-            // Đọc dữ liệu bằng StreamReader
             StreamReader reader = new StreamReader(dataStream);
 
-            // Đọc toàn bộ nội dung HTML
             string responseFromServer = reader.ReadToEnd();
 
-            // Đóng kết nối
             response.Close();
 
             return responseFromServer;
@@ -53,10 +49,9 @@ namespace Bai01
                     return;
                 }
 
-                // Gọi hàm lấy HTML
+
                 string html = getHTML(url);
 
-                // Hiển thị nội dung vào RichTextBox
                 txt_html.Text = html;
             }
             catch (Exception ex)
