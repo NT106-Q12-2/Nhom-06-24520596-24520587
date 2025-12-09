@@ -1,4 +1,4 @@
-﻿
+
 using System;
 using System.Windows.Forms;
 using MailKit.Net.Imap;
@@ -114,7 +114,7 @@ namespace Bai02
                 lblStatus.Text = "Kết nối thất bại!";
                 lblStatus.ForeColor = Color.Red;
 
-                string errorMessage = $"Lỗi: {ex.Message}\n\nLưu ý: Nếu dùng Gmail, bạn cần:\n";
+                string errorMessage = $"Lỗi: {ex.Message}\n\n";
 
                 MessageBox.Show(errorMessage, "Lỗi kết nối",
                     MessageBoxButtons.OK, MessageBoxIcon.Error);
