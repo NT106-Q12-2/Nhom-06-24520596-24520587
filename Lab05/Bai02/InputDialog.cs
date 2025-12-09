@@ -1,21 +1,18 @@
-﻿using System;
+using System;
 using System.Windows.Forms;
 
 namespace Bai02
 {
     public partial class InputDialog : Form
     {
-        // Property để lấy giá trị nhập
         public string InputText => txtInput.Text;
 
-        // Constructor với tham số
         public InputDialog(string title, string promptText, string defaultValue)
         {
             InitializeComponent();
             SetupDialog(title, promptText, defaultValue);
         }
 
-        // Thiết lập thông tin cho dialog
         private void SetupDialog(string title, string promptText, string defaultValue)
         {
             this.Text = title;
@@ -23,7 +20,6 @@ namespace Bai02
             txtInput.Text = defaultValue;
         }
 
-        // Phương thức static để hiển thị dialog
         public static string Show(string title, string promptText, string defaultValue)
         {
             using (var dialog = new InputDialog(title, promptText, defaultValue))
