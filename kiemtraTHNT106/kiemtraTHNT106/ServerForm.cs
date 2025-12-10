@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.Data.Sqlite;
+using System;
 using System.Collections.Generic;
 using System.Data.SQLite;
 using System.IO;
@@ -23,36 +24,6 @@ namespace Test
             InitializeComponent();
         }
 
-        private void ServerForm_Load(object sender, EventArgs e)
-        {
-            dbPath = Path.Combine(Application.StartupPath, "monan_server.db");
-
-            if (!File.Exists(dbPath))
-            {
-                SQLiteConnection.CreateFile(dbPath);
-                TaoCauTrucDB();
-            }
-            else
-            {
-                TaoCauTrucDB();
-            }
-            lv_log.View = View.List;
-        }
-
-        private void TaoCauTrucDB()
-        {
-            using (var conn = new SQLiteConnection($"Data Source={dbPath};Version=3;"))
-            {
-                conn.Open();
-                string sql = @"CREATE TABLE IF NOT EXISTS MonAn (
-                        ID INTEGER PRIMARY KEY AUTOINCREMENT,
-                        HoTen TEXT,
-                        TenMon TEXT,
-                        Hinh TEXT)";
-                new SQLiteCommand(sql, conn).ExecuteNonQuery();
-                conn.Close();
-            }
-        }
 
         private void btn_start_Click(object sender, EventArgs e)
         {
@@ -87,32 +58,6 @@ namespace Test
                 catch { break; }
             }
         }
-
-        private void BroadcastAllData()
-        {
-            string data = "";
-            using (var conn = new SQLiteConnection($"Data Source={dbPath};Version=3;"))
-            {
-                conn.Open();
-                SQLiteCommand cmd = new SQLiteCommand("SELECT HoTen, TenMon, Hinh FROM MonAn", conn);
-                SQLiteDataReader r = cmd.ExecuteReader();
-                while (r.Read())
-                {
-                    data += $"{r["HoTen"]}|{r["TenMon"]}|{r["Hinh"]}#";
-                }
-                conn.Close();
-            }
-
-            byte[] sendData = Encoding.UTF8.GetBytes("DATA|" + data);
-            lock (clients)
-            {
-                foreach (var c in clients.ToList())
-                {
-                    try { c.GetStream().Write(sendData, 0, sendData.Length); }
-                    catch { clients.Remove(c); }
-                }
-            }
-        }
         private void XuLyClient(TcpClient client)
         {
             NetworkStream stream = client.GetStream();
@@ -141,15 +86,11 @@ namespace Test
                             string ten = parts[1];
                             string mon = parts[2];
                             string hinh = parts[3].Replace("\n", "").Trim();
-
-                            ThemMonAn(ten, mon, hinh);
                             Broadcast(msg);
-                            BroadcastAllData();
                         }
                     }
                     else if (msg.StartsWith("GETALL"))
                     {
-                        GuiTatCaMon(client);
                     }
                 }
                 catch (Exception ex)
@@ -173,45 +114,6 @@ namespace Test
             client.Close();
         }
 
-        private void ThemMonAn(string ten, string mon, string hinh)
-        {
-            using (var conn = new SQLiteConnection($"Data Source={dbPath};Version=3;"))
-            {
-                conn.Open();
-                string sql = "INSERT INTO MonAn (HoTen, TenMon, Hinh) VALUES (@a,@b,@c)";
-                SQLiteCommand cmd = new SQLiteCommand(sql, conn);
-                cmd.Parameters.AddWithValue("@a", ten);
-                cmd.Parameters.AddWithValue("@b", mon);
-                cmd.Parameters.AddWithValue("@c", hinh);
-                cmd.ExecuteNonQuery();
-                conn.Close();
-            }
-
-            this.Invoke((Action)(() =>
-            {
-                lv_log.Items.Add($"{ten} them mon {mon}");
-            }));
-        }
-
-        private void GuiTatCaMon(TcpClient client)
-        {
-            string data = "";
-            using (var conn = new SQLiteConnection($"Data Source={dbPath};Version=3;"))
-            {
-                conn.Open();
-                SQLiteCommand cmd = new SQLiteCommand("SELECT HoTen, TenMon, Hinh FROM MonAn", conn);
-                SQLiteDataReader r = cmd.ExecuteReader();
-                while (r.Read())
-                {
-                    data += $"{r["HoTen"]}|{r["TenMon"]}|{r["Hinh"]}#";
-                }
-                conn.Close();
-            }
-
-            byte[] sendData = Encoding.UTF8.GetBytes("DATA|" + data);
-            client.GetStream().Write(sendData, 0, sendData.Length);
-        }
-
         private void Broadcast(string msg)
         {
             byte[] data = Encoding.UTF8.GetBytes(msg);
@@ -231,5 +133,11 @@ namespace Test
             }
         }
 
+        private void btn_charge_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }
+
+    

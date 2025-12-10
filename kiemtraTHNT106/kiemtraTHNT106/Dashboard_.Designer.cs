@@ -21,58 +21,59 @@ namespace Test
 
         private void InitializeComponent()
         {
-            btn_OpenServer = new Button();
-            btn_OpenClient = new Button();
-            label1 = new Label();
-            SuspendLayout();
+            this.btn_OpenServer = new System.Windows.Forms.Button();
+            this.btn_OpenClient = new System.Windows.Forms.Button();
+            this.label1 = new System.Windows.Forms.Label();
+            this.SuspendLayout();
             // 
             // btn_OpenServer
             // 
-            btn_OpenServer.BackColor = Color.Cornsilk;
-            btn_OpenServer.Font = new Font("Segoe UI", 12F);
-            btn_OpenServer.Location = new Point(70, 100);
-            btn_OpenServer.Name = "btn_OpenServer";
-            btn_OpenServer.Size = new Size(250, 50);
-            btn_OpenServer.TabIndex = 1;
-            btn_OpenServer.Text = "Open Server";
-            btn_OpenServer.UseVisualStyleBackColor = false;
-            btn_OpenServer.Click += btn_OpenServer_Click;
+            this.btn_OpenServer.BackColor = System.Drawing.Color.Cornsilk;
+            this.btn_OpenServer.Font = new System.Drawing.Font("Segoe UI", 12F);
+            this.btn_OpenServer.Location = new System.Drawing.Point(70, 100);
+            this.btn_OpenServer.Name = "btn_OpenServer";
+            this.btn_OpenServer.Size = new System.Drawing.Size(250, 50);
+            this.btn_OpenServer.TabIndex = 1;
+            this.btn_OpenServer.Text = "Open Server";
+            this.btn_OpenServer.UseVisualStyleBackColor = false;
+            this.btn_OpenServer.Click += new System.EventHandler(this.btn_OpenServer_Click);
             // 
             // btn_OpenClient
             // 
-            btn_OpenClient.BackColor = Color.DarkKhaki;
-            btn_OpenClient.Font = new Font("Segoe UI", 12F);
-            btn_OpenClient.Location = new Point(70, 170);
-            btn_OpenClient.Name = "btn_OpenClient";
-            btn_OpenClient.Size = new Size(250, 50);
-            btn_OpenClient.TabIndex = 2;
-            btn_OpenClient.Text = "Open Client";
-            btn_OpenClient.UseVisualStyleBackColor = false;
-            btn_OpenClient.Click += btn_OpenClient_Click;
+            this.btn_OpenClient.BackColor = System.Drawing.Color.DarkKhaki;
+            this.btn_OpenClient.Font = new System.Drawing.Font("Segoe UI", 12F);
+            this.btn_OpenClient.Location = new System.Drawing.Point(70, 170);
+            this.btn_OpenClient.Name = "btn_OpenClient";
+            this.btn_OpenClient.Size = new System.Drawing.Size(250, 50);
+            this.btn_OpenClient.TabIndex = 2;
+            this.btn_OpenClient.Text = "Open Client";
+            this.btn_OpenClient.UseVisualStyleBackColor = false;
+            this.btn_OpenClient.Click += new System.EventHandler(this.btn_OpenClient_Click);
             // 
             // label1
             // 
-            label1.AutoSize = true;
-            label1.BackColor = SystemColors.Control;
-            label1.Font = new Font("Segoe UI", 16F, FontStyle.Bold);
-            label1.ForeColor = Color.DarkSeaGreen;
-            label1.Location = new Point(4, 9);
-            label1.Name = "label1";
-            label1.Size = new Size(398, 37);
-            label1.TabIndex = 0;
-            label1.Text = "HÔM NAY ĂN GÌ? ( Version 3 )";
+            this.label1.AutoSize = true;
+            this.label1.BackColor = System.Drawing.SystemColors.Control;
+            this.label1.Font = new System.Drawing.Font("Segoe UI", 16F, System.Drawing.FontStyle.Bold);
+            this.label1.ForeColor = System.Drawing.Color.DarkSeaGreen;
+            this.label1.Location = new System.Drawing.Point(63, 9);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(264, 37);
+            this.label1.TabIndex = 0;
+            this.label1.Text = "Đặt Món Nhà Hàng";
             // 
             // Dashboard
             // 
-            ClientSize = new Size(400, 260);
-            Controls.Add(label1);
-            Controls.Add(btn_OpenServer);
-            Controls.Add(btn_OpenClient);
-            Name = "Dashboard";
-            StartPosition = FormStartPosition.CenterScreen;
-            Text = "Dashboard - Hôm Nay Ăn Gì?";
-            ResumeLayout(false);
-            PerformLayout();
+            this.ClientSize = new System.Drawing.Size(400, 260);
+            this.Controls.Add(this.label1);
+            this.Controls.Add(this.btn_OpenServer);
+            this.Controls.Add(this.btn_OpenClient);
+            this.Name = "Dashboard";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
+            this.Text = "Dashboard - Hôm Nay Ăn Gì?";
+            this.ResumeLayout(false);
+            this.PerformLayout();
+
         }
     }
 }
