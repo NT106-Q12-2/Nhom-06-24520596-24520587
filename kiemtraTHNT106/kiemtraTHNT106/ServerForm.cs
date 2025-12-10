@@ -1,4 +1,5 @@
 ﻿using Microsoft.Data.Sqlite;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Data.SQLite;
@@ -132,6 +133,37 @@ namespace Test
             }
         }
 
+        private void Send_Menu(TcpClient client, NetworkStream stream)
+        {
+            try
+            {
+                using (StreamReader sr = new StreamReader("menu.txt"))
+                {
+                    string line;
+                    while ((line = sr.ReadLine()) != null)
+                    {
+                        string[] words = line.Split(';');
+
+
+                        var Data = new
+                        {
+                            action = "GET_MENU",
+                            STT = words[0],
+                            Tien = words[1],
+                            Ten = words[2]
+                        };
+
+                        stream = client.GetStream();
+                        StreamWriter sw = new StreamWriter(stream) { AutoFlush = true };
+                        sw.WriteLine(JsonConvert.SerializeObject(Data));
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+        }
         private void btn_charge_Click(object sender, EventArgs e)
         {
 

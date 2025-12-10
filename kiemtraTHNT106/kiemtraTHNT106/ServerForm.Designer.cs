@@ -30,6 +30,7 @@ namespace Test
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.tb_tongtien = new System.Windows.Forms.TextBox();
+            this.Table = new System.Windows.Forms.DataGridViewTextBoxColumn();
             ((System.ComponentModel.ISupportInitialize)(this.dgv_quanly)).BeginInit();
             this.SuspendLayout();
             // 
@@ -66,6 +67,8 @@ namespace Test
             // dgv_quanly
             // 
             this.dgv_quanly.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dgv_quanly.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.Table});
             this.dgv_quanly.Location = new System.Drawing.Point(27, 120);
             this.dgv_quanly.Name = "dgv_quanly";
             this.dgv_quanly.RowHeadersWidth = 51;
@@ -115,6 +118,13 @@ namespace Test
             this.tb_tongtien.Size = new System.Drawing.Size(100, 22);
             this.tb_tongtien.TabIndex = 8;
             // 
+            // Table
+            // 
+            this.Table.HeaderText = "Table";
+            this.Table.MinimumWidth = 6;
+            this.Table.Name = "Table";
+            this.Table.Width = 125;
+            // 
             // ServerForm
             // 
             this.BackColor = System.Drawing.Color.BlanchedAlmond;
@@ -142,5 +152,6 @@ namespace Test
         private Label label1;
         private Label label2;
         private TextBox tb_tongtien;
+        private DataGridViewTextBoxColumn Table;
     }
 }
