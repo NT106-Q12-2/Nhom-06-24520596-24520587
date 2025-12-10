@@ -17,7 +17,6 @@ namespace Test
         TcpListener listener;
         Thread listenThread;
         List<TcpClient> clients = new List<TcpClient>();
-        string dbPath;
 
         public ServerForm()
         {
@@ -27,12 +26,12 @@ namespace Test
 
         private void btn_start_Click(object sender, EventArgs e)
         {
-            listener = new TcpListener(IPAddress.Any, 8888);
+            listener = new TcpListener(IPAddress.Any, 9000);
             listener.Start();
             listenThread = new Thread(NhanClient);
             listenThread.IsBackground = true;
             listenThread.Start();
-            lb_status.Text = "Server đang chạy trên cổng 8888";
+            lb_status.Text = "Server đang chạy trên cổng 9000";
         }
 
         private void NhanClient()
